@@ -1,0 +1,22 @@
+<html>
+<head>
+    <script src='scripts/index.js'></script>
+</head>
+
+<body onload="init()">
+    <h1>What Color Is That?</h1>
+    <p>Upload an image and hover over the color to see what it is</p>
+
+    <label for="imageLoader" class="button">Upload Image</label>
+    <input type="file" id="imageLoader" name="imageLoader" accept="image/*">
+
+    <div id="canvasContainer" style="position:relative;top:5%;">
+        <canvas id="can" width="400" height="400" style="position:absolute;border:1px solid #ccc;"></canvas>
+    </div>
+
+    <div style="position:relative; top:500;">
+        <label for="colorCode" style="font-size: 20px;">Resulting Color:</label>
+        <input type="text" id="colorCode" name="colorCode" style="font-size:20px;height:40px;" readonly>
+    </div>
+</body>
+</html>
