@@ -1,0 +1,77 @@
+body {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
+}
+
+canvas {
+    position:absolute;
+    border:1px solid #ccc;
+}
+
+#backcan {
+    z-index: -1;
+}
+
+#canvasContainer {
+    position: relative;
+    top: 15px;
+}
+
+#rgbColorCode {
+    font-size:20px;
+    height:40px;
+    width:125px;
+}
+
+#hexColorCode {
+    font-size:20px;
+    height:40px;
+    width:127px;
+}
+
+/* Inputs */
+input[type=file]{ color: transparent; }
+
+.fileInput::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.fileInput:hover::before {
+    border-color: black;
+}
+
+.fileInput:active::before {
+    background:#5cb85c;
+    color: white;
+}
+
+.fileInput::before {
+    color: white;
+    font-family: 'Ubuntu', 'sans-serif';
+    content: 'Upload an Image';
+    display: inline-block;
+    background: #5cb85c;
+    border: 2px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+/* Footer */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #4C8BF5;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+ }
+ .footer-text {
+     color: white;
+     text-decoration: none;
+ }
