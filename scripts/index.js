@@ -1,4 +1,4 @@
-var canvas, backcan, ctx, fileinput, container, img, rgbColorCode, hexColorCode
+var canvas, backcan, colorcan, ctx, backctx, colorctx, fileinput, container, img, rgbColorCode, hexColorCode
     prevX = 0,
     prevY = 0,
     currX = 0,
@@ -7,8 +7,10 @@ var canvas, backcan, ctx, fileinput, container, img, rgbColorCode, hexColorCode
 $(document).ready(function () {
     canvas = document.getElementById('can');
     backcan = document.getElementById('backcan');
+    colorcan = document.getElementById('colorcan');
     ctx = canvas.getContext("2d");
     backctx = backcan.getContext("2d");
+    colorctx = colorcan.getContext("2d");
     container = document.getElementById('canvasContainer');
     img = new Image();
     rgbColorCode = document.getElementById('rgbColorCode');
@@ -45,6 +47,7 @@ function MouseDown() {
     // While the mouse is down, call these functions
     $('#can').on('mousemove touchmove', DragMouse);
     $('#can').on('mousemove touchmove', getRGBValue);
+    $('#can').on('mousemove touchmove', drawCurrColor);
 }
 
 function DragMouse(e) {
@@ -63,18 +66,26 @@ function DragMouse(e) {
 function drawCrossHair(x, y) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // H 
     ctx.beginPath();
     ctx.strokeStyle = "red";
     ctx.moveTo(0, y - 1);
     ctx.lineTo(500, y + 1);
     ctx.stroke();
 
-    // V
     ctx.beginPath();
     ctx.moveTo(x - 1, 0);
     ctx.lineTo(x + 1, 500);
     ctx.stroke();
+}
+
+function drawCurrColor() {
+    colorctx.clearRect(0, 0, colorcan.width, colorcan.height);
+
+    colorctx.stroke();
+    colorctx.beginPath();
+    colorctx.rect(0, 0, 200, 600);
+    colorctx.fillStyle = "#" + hexColorCode.value;
+    colorctx.fill();
 }
 
 function showUploadedImage(evt) {

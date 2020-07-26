@@ -3,9 +3,17 @@ body {
     font-size: 20px;
 }
 
+h1, p {
+    text-align: center;
+}
+
 canvas {
-    position:absolute;
+    position: absolute;
     border:1px solid #ccc;
+}
+
+#colorcan {
+    left: 600px;
 }
 
 #backcan {
@@ -18,15 +26,15 @@ canvas {
 }
 
 #rgbColorCode {
-    font-size:20px;
-    height:40px;
-    width:125px;
+    font-size: 20px;
+    height: 40px;
+    width: 125px;
 }
 
 #hexColorCode {
-    font-size:20px;
-    height:40px;
-    width:127px;
+    font-size: 20px;
+    height: 40px;
+    width: 127px;
 }
 
 /* Inputs */
