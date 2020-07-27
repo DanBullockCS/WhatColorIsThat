@@ -1,15 +1,16 @@
 body {
     font-family: 'Ubuntu', sans-serif;
     font-size: 20px;
+    margin: 25px;
 }
 
 h1, p {
-    text-align: center;
+    text-align: left;
 }
 
 canvas {
     position: absolute;
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
 }
 
 #colorcan {
@@ -28,9 +29,16 @@ canvas {
 #rgbColorCode, #hexColorCode, #colorName {
     font-size: 20px;
     height: 40px;
+    margin: 10px;
 }
 
 /* Inputs */
+.outputs {
+    position: relative;
+    top: 45%;
+    max-width: 300px;
+}
+
 input[type=file]{ color: transparent; }
 
 .fileInput::-webkit-file-upload-button {
@@ -76,3 +84,5 @@ input[type=file]{ color: transparent; }
      color: white;
      text-decoration: none;
  }
+
+ /* Resizing */
