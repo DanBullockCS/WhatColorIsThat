@@ -19,6 +19,7 @@ $(document).ready(function () {
     // Setup Inputs & the uploaded Image
     rgbColorCode = document.getElementById('rgbColorCode');
     hexColorCode = document.getElementById('hexColorCode');
+    colorName = document.getElementById('colorName');
     img = new Image();
 
     // Event Listeners
@@ -76,12 +77,12 @@ function drawCrossHair(x, y) {
     ctx.beginPath();
     ctx.strokeStyle = "red";
     ctx.moveTo(0, y - 1);
-    ctx.lineTo(600, y + 1);
+    ctx.lineTo(canvas.width, y + 1);
     ctx.stroke();
 
     ctx.beginPath();
     ctx.moveTo(x - 1, 0);
-    ctx.lineTo(x + 1, 600);
+    ctx.lineTo(x + 1, canvas.width);
     ctx.stroke();
 }
 
@@ -90,7 +91,7 @@ function drawCurrColor() {
 
     colorctx.stroke();
     colorctx.beginPath();
-    colorctx.rect(0, 0, 200, 600);
+    colorctx.rect(0, 0, 200, canvas.width);
     colorctx.fillStyle = "#" + hexColorCode.value;
     colorctx.fill();
 }
@@ -147,6 +148,10 @@ function getRGBValue() {
 
     rgbColorCode.value = rgb;
     hexColorCode.value = resultHex;
+
+    // Using ntc.js from Chirag Mehta
+    let NameThatColorArray  = ntc.name("#"+resultHex);
+    colorName.value = NameThatColorArray[1];
 }
 
 // Prevent default code for touchscreens

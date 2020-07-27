@@ -25,16 +25,9 @@ canvas {
     top: 15px;
 }
 
-#rgbColorCode {
+#rgbColorCode, #hexColorCode, #colorName {
     font-size: 20px;
     height: 40px;
-    width: 125px;
-}
-
-#hexColorCode {
-    font-size: 20px;
-    height: 40px;
-    width: 127px;
 }
 
 /* Inputs */
