@@ -9,7 +9,7 @@
     <script src='scripts/ntc.js'></script>
     <script src='scripts/index.js'></script>
     <!-- Meta -->
-    <title>What Is That Color?</title>
+    <title>What Color Is That?</title>
     <link rel="icon" href="images/favicon.ico" type="favicon">
     <meta name="author" content="DanBullockCS">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,9 +17,13 @@
 
 <body>
     <h1>What Color Is That?</h1>
-    <p>Upload an image and click a part of it to see what color it is</p>
+    <p>Upload or link an image and click a part of it to see what color it is.</p>
 
     <input type="file" id="imageLoader" name="imageLoader" accept="image/*" class="fileInput">
+
+    <button id="imageLinkButton" onclick="showUploadedImageURL()">Paste Image URL</button>
+    <input type="text" id="imageLinkLoader" name="imageLinkLoader" placeholder="http://...">
+    <label>(Accepts most image file formats)</label>
 
     <div id="canvasContainer">
         <canvas id="can" width="600" height="400"></canvas>
@@ -43,7 +47,7 @@
     </div>
 
     <!-- <div class="footer">
-        <a href="https://github.com/DanBullockCS" target="_blank" class="footer-text">@DanBullockCS</a>
+        <a href="https://github.com/DanBullockCS" target="_blank" class="footer-text">Made by @DanBullockCS</a>
     </div> -->
 
     <div class="switchDiv">

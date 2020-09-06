@@ -1,8 +1,8 @@
 var canvas, backcan, colorcan, ctx, backctx, colorctx, fileinput, container, img, rgbColorCode, hexColorCode
 prevX = 0,
-    prevY = 0,
-    currX = 0,
-    currY = 0;
+prevY = 0,
+currX = 0,
+currY = 0;
 
 $(document).ready(function () {
     // Darkmode
@@ -41,6 +41,10 @@ $(document).ready(function () {
 
     $('#imageLoader').on("change", function (e) {
         showUploadedImage(e);
+    });
+
+    $('#imageLinkLoader').on("keyup", function(e) { 
+        hitEnterOnImageLinkLoad(e);
     });
 });
 
@@ -101,11 +105,11 @@ function drawCurrColor() {
 }
 
 function showUploadedImage(evt) {
-    var files = evt.target.files;
-    var file = files[0];
+    let files = evt.target.files;
+    let file = files[0];
 
     if (file.type.match('image.*')) {
-        var reader = new FileReader();
+        let reader = new FileReader();
 
         // Read in the image file as a data URL.
         reader.readAsDataURL(file);
@@ -119,9 +123,9 @@ function showUploadedImage(evt) {
                 // Make sure the img is loaded before 
                 img.onload = function () {
                     // Calculate the scale of the canvas and image
-                    var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-                    var x = (canvas.width / 2) - (img.width / 2) * scale;
-                    var y = (canvas.height / 2) - (img.height / 2) * scale;
+                    let scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+                    let x = (canvas.width / 2) - (img.width / 2) * scale;
+                    let y = (canvas.height / 2) - (img.height / 2) * scale;
 
                     // Draw the image on the canvas
                     backctx.drawImage(img, x, y, img.width * scale, img.height * scale);
@@ -132,6 +136,34 @@ function showUploadedImage(evt) {
     } else {
         alert("What you uploaded there, was not an image.");
     }
+}
+
+// Load the image into the canvas from a link
+function showUploadedImageURL() {
+    let file = $("#imageLinkLoader").val();
+
+    if (file.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+        // Get image from URL
+        img.src = file;
+        img.crossOrigin = "Anonymous";
+
+        // Clear the canvas
+        backctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Make sure the img is loaded before 
+        img.onload = function () {
+            // Calculate the scale of the canvas and image
+            let scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+            let x = (canvas.width / 2) - (img.width / 2) * scale;
+            let y = (canvas.height / 2) - (img.height / 2) * scale;
+
+            // Draw the image on the canvas
+            backctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+        }
+    } else {
+        alert("The URL you inputted is not of type jpeg/jpg/gif/png");
+    }
+   
 }
 
 function getRGBValue() {
@@ -155,6 +187,14 @@ function getRGBValue() {
     // Using ntc.js from Chirag Mehta
     let NameThatColorArray = ntc.name("#" + resultHex);
     colorName.value = NameThatColorArray[1];
+}
+
+// If enter was hit on text box, call the imageLinkLoad function.
+function hitEnterOnImageLinkLoad(e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        showUploadedImageURL();
+    }
 }
 
 // Prevent default code for touchscreens

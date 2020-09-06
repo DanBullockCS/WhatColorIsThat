@@ -32,14 +32,15 @@ canvas {
     margin: 10px;
 }
 
-/* Inputs */
 .outputs {
     position: relative;
     top: 45%;
     max-width: 300px;
 }
 
+/* Inputs */
 input[type=file]{ color: transparent; }
+label { font-size: 1rem; }
 
 .fileInput::-webkit-file-upload-button {
     visibility: hidden;
@@ -68,6 +69,22 @@ input[type=file]{ color: transparent; }
     -webkit-user-select: none;
     cursor: pointer;
 }
+
+#imageLinkButton {
+    color: white;
+    font-family: 'Ubuntu', 'sans-serif';
+    display: inline-block;
+    background: #5cb85c;
+    border: 2px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+#imageLinkButton:hover { border-color: black; }
+#imageLinkLoader { height: 2rem; }
 
 /* Footer */
 .footer {
