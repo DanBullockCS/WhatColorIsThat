@@ -4,6 +4,11 @@ body {
     margin: 25px;
 }
 
+a {
+    text-decoration: none;
+    color: #4C8BF5;
+}
+
 h1, p {
     text-align: left;
 }
@@ -73,6 +78,23 @@ label { font-size: 1rem; }
     -webkit-user-select: none;
     cursor: pointer;
 }
+
+#home-btn {
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: 'Ubuntu', 'sans-serif';
+    display: inline-block;
+    background: #5cb85c;
+    border: 2px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+#home-btn:hover { border-color: black; }
 
 #imageLinkButton {
     color: white;
