@@ -34,8 +34,12 @@ canvas {
 
 .outputs {
     position: relative;
-    top: 45%;
+    top: 400px;
     max-width: 300px;
+}
+
+#mobile-only-msg {
+    display: none;
 }
 
 /* Inputs */
@@ -103,3 +107,8 @@ label { font-size: 1rem; }
  }
 
  /* Resizing */
+ @media (pointer:none), (pointer:coarse) {
+     #mobile-only-msg {
+         display: block;
+     }
+ }
