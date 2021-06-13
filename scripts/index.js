@@ -108,6 +108,7 @@ function drawCurrColor() {
 
 function changeCrosshairColour() {
     crosshairColour = "#" + Math.floor(Math.random()*16777215).toString(16);
+    drawCrossHair(300, 200);
 }
 
 function showUploadedImage(evt) {
