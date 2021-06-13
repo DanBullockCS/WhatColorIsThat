@@ -4,7 +4,7 @@ prevY = 0,
 currX = 0,
 currY = 0;
 
-var crosshairColour = "red";
+var crosshairColor = "red";
 
 $(document).ready(function () {
     // Darkmode
@@ -85,7 +85,7 @@ function drawCrossHair(x, y) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.beginPath();
-    ctx.strokeStyle = crosshairColour;
+    ctx.strokeStyle = crosshairColor;
     ctx.moveTo(0, y - 1);
     ctx.lineTo(canvas.width, y + 1);
     ctx.stroke();
@@ -106,8 +106,8 @@ function drawCurrColor() {
     colorctx.fill();
 }
 
-function changeCrosshairColour() {
-    crosshairColour = "#" + Math.floor(Math.random()*16777215).toString(16);
+function changeCrosshairColor() {
+    crosshairColor = "#" + Math.floor(Math.random()*16777215).toString(16);
     drawCrossHair(300, 200);
 }
 
@@ -149,37 +149,41 @@ function showUploadedImage(evt) {
 function showUploadedImageURL() {
     let file = $("#imageLinkLoader").val();
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", 'https://cors-anywhere.herokuapp.com/' + file, true);
+    if (file.match(/\.(jpeg|jpg|png|gif|webp|jfif)/g) != null) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", 'https://cors-anywhere.herokuapp.com/' + file, true);
 
-    xhttp.onload = function(){
-        let response = xhttp.responseText;
-        let binary = "";
-        
-        // Convert to binary :)
-        for (i = 0; i < response.length; i++){
-            binary += String.fromCharCode(response.charCodeAt(i) & 0xff);
+        xhttp.onload = function() {
+            let response = xhttp.responseText;
+            let binary = "";
+            
+            // Convert to binary :)
+            for (i = 0; i < response.length; i++){
+                binary += String.fromCharCode(response.charCodeAt(i) & 0xff);
+            }
+            
+            img.src = 'data:image/jpeg;base64,' + btoa(binary);
+            
+            // Clear the canvas
+            backctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Make sure the img is loaded before 
+            img.onload = function () {
+                // Calculate the scale of the canvas and image
+                let scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+                let x = (canvas.width / 2) - (img.width / 2) * scale;
+                let y = (canvas.height / 2) - (img.height / 2) * scale;
+
+                // Draw the image on the canvas
+                backctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+            }
         }
-        
-        img.src = 'data:image/jpeg;base64,' + btoa(binary);
-        
-        // Clear the canvas
-        backctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Make sure the img is loaded before 
-        img.onload = function () {
-            // Calculate the scale of the canvas and image
-            let scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-            let x = (canvas.width / 2) - (img.width / 2) * scale;
-            let y = (canvas.height / 2) - (img.height / 2) * scale;
-
-            // Draw the image on the canvas
-            backctx.drawImage(img, x, y, img.width * scale, img.height * scale);
-        }
+        xhttp.overrideMimeType('text/plain; charset=x-user-defined');
+        xhttp.send();
+    } else {
+        alert("That url type is not supported, please try another file extension");
     }
-
-    xhttp.overrideMimeType('text/plain; charset=x-user-defined');
-    xhttp.send();
 
     // if (file.match(/\.(jpeg|jpg|png|gif|webp|jfif)/g) != null) {
     //     // Get image from URL
@@ -200,7 +204,7 @@ function showUploadedImageURL() {
     //         backctx.drawImage(img, x, y, img.width * scale, img.height * scale);
     //     }
     // } else {
-    //     alert("There was an error grabbing the image from that URL, this may be an unsupported extension or the website doesn't allow us to grab the image. Please download and upload the image to find it's colours.");
+    //     alert("That url type is not supported, please try another file extension");
     // }
    
 }
