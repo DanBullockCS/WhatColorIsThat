@@ -138,13 +138,15 @@ function showUploadedImage(evt) {
     }
 }
 
+// ***TODO: Refactor this to work with the current server setup***
+
 // Load the image into the canvas from a link
 function showUploadedImageURL() {
     let file = $("#imageLinkLoader").val();
 
-    if (file.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+    if (file.match(/\.(jpeg|jpg|png|gif|webp)/g) != null) {
         // Get image from URL
-        img.src = file;
+        img.src = file + '?' + new Date().getTime();
         img.crossOrigin = "Anonymous";
 
         // Clear the canvas
@@ -161,7 +163,7 @@ function showUploadedImageURL() {
             backctx.drawImage(img, x, y, img.width * scale, img.height * scale);
         }
     } else {
-        alert("The URL you inputted is not of type jpeg/jpg/gif/png");
+        alert("There was an error grabbing the image from that URL, this may be an unsupported extension or the website doesn't allow us to grab the image. Please download and upload the image to find it's colours.");
     }
    
 }
