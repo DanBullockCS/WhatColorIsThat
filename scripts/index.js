@@ -149,7 +149,7 @@ function showUploadedImage(evt) {
 function showUploadedImageURL() {
     let file = $("#imageLinkLoader").val();
 
-    if (file.match(/\.(jpeg|jpg|png|gif|webp|jfif)/g) != null) {
+    if (file.match(/(jpeg|jpg|png|gif|webp|jfif)/g) != null) {
         var xhttp = new XMLHttpRequest();
         xhttp.open("GET", 'https://cors-anywhere.herokuapp.com/' + file, true);
 
