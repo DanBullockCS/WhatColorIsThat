@@ -4,6 +4,8 @@ prevY = 0,
 currX = 0,
 currY = 0;
 
+var crosshairColour = "red";
+
 $(document).ready(function () {
     // Darkmode
     $("body").toggleClass(localStorage.toggled);
@@ -83,7 +85,7 @@ function drawCrossHair(x, y) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.beginPath();
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = crosshairColour;
     ctx.moveTo(0, y - 1);
     ctx.lineTo(canvas.width, y + 1);
     ctx.stroke();
@@ -102,6 +104,10 @@ function drawCurrColor() {
     colorctx.rect(0, 0, colorcan.width, colorcan.height);
     colorctx.fillStyle = "#" + hexColorCode.value;
     colorctx.fill();
+}
+
+function changeCrosshairColour() {
+    crosshairColour = "#" + Math.floor(Math.random()*16777215).toString(16);
 }
 
 function showUploadedImage(evt) {
@@ -138,17 +144,24 @@ function showUploadedImage(evt) {
     }
 }
 
-// ***TODO: Refactor this to work with the current server setup***
-
-// Load the image into the canvas from a link
+// Load the image into the canvas from a link using an XMLHttpRequest
 function showUploadedImageURL() {
     let file = $("#imageLinkLoader").val();
 
-    if (file.match(/\.(jpeg|jpg|png|gif|webp)/g) != null) {
-        // Get image from URL
-        img.src = file + '?' + new Date().getTime();
-        img.crossOrigin = "Anonymous";
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", 'https://cors-anywhere.herokuapp.com/' + file, true);
 
+    xhttp.onload = function(){
+        let response = xhttp.responseText;
+        let binary = "";
+        
+        // Convert to binary :)
+        for (i = 0; i < response.length; i++){
+            binary += String.fromCharCode(response.charCodeAt(i) & 0xff);
+        }
+        
+        img.src = 'data:image/jpeg;base64,' + btoa(binary);
+        
         // Clear the canvas
         backctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -162,9 +175,32 @@ function showUploadedImageURL() {
             // Draw the image on the canvas
             backctx.drawImage(img, x, y, img.width * scale, img.height * scale);
         }
-    } else {
-        alert("There was an error grabbing the image from that URL, this may be an unsupported extension or the website doesn't allow us to grab the image. Please download and upload the image to find it's colours.");
     }
+
+    xhttp.overrideMimeType('text/plain; charset=x-user-defined');
+    xhttp.send();
+
+    // if (file.match(/\.(jpeg|jpg|png|gif|webp|jfif)/g) != null) {
+    //     // Get image from URL
+    //     img.src = file + '?' + new Date().getTime();
+    //     img.crossOrigin = "Anonymous";
+
+    //     // Clear the canvas
+    //     backctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    //     // Make sure the img is loaded before 
+    //     img.onload = function () {
+    //         // Calculate the scale of the canvas and image
+    //         let scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+    //         let x = (canvas.width / 2) - (img.width / 2) * scale;
+    //         let y = (canvas.height / 2) - (img.height / 2) * scale;
+
+    //         // Draw the image on the canvas
+    //         backctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+    //     }
+    // } else {
+    //     alert("There was an error grabbing the image from that URL, this may be an unsupported extension or the website doesn't allow us to grab the image. Please download and upload the image to find it's colours.");
+    // }
    
 }
 

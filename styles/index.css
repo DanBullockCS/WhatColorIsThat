@@ -1,6 +1,6 @@
 body {
     font-family: 'Ubuntu', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     margin: 25px;
 }
 
@@ -96,7 +96,7 @@ label { font-size: 1rem; }
 }
 #home-btn:hover { border-color: black; }
 
-#imageLinkButton {
+#imageLinkButton, #changeCrossHairbutton {
     color: white;
     font-family: 'Ubuntu', 'sans-serif';
     display: inline-block;
@@ -109,7 +109,7 @@ label { font-size: 1rem; }
     -webkit-user-select: none;
     cursor: pointer;
 }
-#imageLinkButton:hover { border-color: black; }
+#imageLinkButton:hover, #changeCrossHairbutton:hover { border-color: black; }
 #imageLinkLoader { height: 2rem; }
 
 /* Footer */
