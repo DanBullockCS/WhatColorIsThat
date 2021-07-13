@@ -18,6 +18,10 @@ canvas {
     border: 1px solid #ccc;
 }
 
+#can {
+    cursor: crosshair;
+}
+
 #colorcan {
     left: 600px;
 }
